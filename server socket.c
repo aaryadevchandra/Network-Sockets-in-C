@@ -2,11 +2,19 @@
 #include <WS2tcpip.h>
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include<Winsock2.h>
-#include<iostream>
-
-using namespace std;
 
 #pragma comment(lib, "Ws2_32.lib")
+
+void displaybuffer(char* buffer)
+{   
+    while(*buffer != '\0')
+    {
+        printf("%c", *buffer);
+        buffer += 1;
+    }
+
+    printf("\n");
+}
 
 int main()
 {
@@ -36,12 +44,12 @@ int main()
 
     printf("\n\nAttempting to bind the server socket...");
 
-    sockaddr_in server_addr;
+    struct sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(6969);
     server_addr.sin_addr.S_un.S_addr = INADDR_ANY;
 
-    if(bind(server_socket, (sockaddr*)&server_addr, sizeof(server_addr))!=0)
+    if(bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr))!=0)
     {
         printf("\n\nError binding server socket");
     }
@@ -49,7 +57,7 @@ int main()
     printf("Server socket binding successfull");
 
     SOCKET client_socket = INVALID_SOCKET;
-    sockaddr_in client_addr;
+    struct sockaddr_in client_addr;
     int client_addr_size = sizeof(client_addr);
 
 
@@ -57,32 +65,23 @@ int main()
 
     printf("\n\nServer socket online, listening for connections...");
 
-    client_socket = accept(server_socket, (sockaddr*)&client_addr, &client_addr_size);
+    client_socket = accept(server_socket, (struct sockaddr*)&client_addr, &client_addr_size);
 
-    printf("\n\nConnected on port %d", ntohs(client_addr.sin_port));
+    printf("\n\nConnected on port %d\n", ntohs(client_addr.sin_port));
 
 
     char recvBuffer[256];
 
-    while(true)
+    while(1)
     {
         recv(client_socket, recvBuffer, 256, 0);
 
-        cout<<recvBuffer;
+
+        displaybuffer(recvBuffer);
 
         printf("\n");
     }
 
-
-
-
-
-
-
-
     getchar();
-
-
-
     
 }

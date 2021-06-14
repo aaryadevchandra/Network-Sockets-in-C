@@ -1,8 +1,8 @@
 #include<stdio.h>
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include<winsock2.h>
-#include<iostream>
-using namespace std;
+// #include<iostream>
+// using namespace std;
 #pragma comment(lib, "Ws2_32.lib")
 
 void displaybuffer(char* buffer)
@@ -43,14 +43,14 @@ int main()
 	printf("\n\nClient socket created sucessfully");
 
 
-	sockaddr_in client_adrr;
+	struct sockaddr_in client_adrr;
 	client_adrr.sin_family = AF_INET;
 	client_adrr.sin_port = htons(6969);
 	client_adrr.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
 
 	printf("\n\nAttempting Connection...");
 
-	if (connect(client_socket, (sockaddr*)&client_adrr, sizeof(client_adrr)) != 0)
+	if (connect(client_socket, (struct sockaddr*)&client_adrr, sizeof(client_adrr)) != 0)
 	{
 		printf("\n\nError making connection:%d", WSAGetLastError());
 		return -1;
@@ -61,9 +61,10 @@ int main()
 	char sendbuffer[256];
 	char recvbuffer[256];
 
-	while (true)
+	while (1)
 	{
-		cin >> sendbuffer;
+		//cin >> sendbuffer;
+		scanf_s("%c", sendbuffer);
 		send(client_socket, sendbuffer, 256, 0);
 	}
 
