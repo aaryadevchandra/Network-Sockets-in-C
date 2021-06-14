@@ -18,7 +18,7 @@ _____________
 - Once the steps are followed, assuming no error has occurred, your client socket console should look like this:
 ![image](https://user-images.githubusercontent.com/66318555/121880912-30728a00-cd2c-11eb-8e57-adf967a0b813.png)
 
-- Simultaneously, your server socket console should look like this:
+- Simultaneously, your server socket console should look like this (port number will vary depending on the port entered in the code):
 ![image](https://user-images.githubusercontent.com/66318555/121880996-497b3b00-cd2c-11eb-9397-fed8d5244cb6.png)
 
 # Some info about the configuration of the sockets
